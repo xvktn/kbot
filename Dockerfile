@@ -3,6 +3,7 @@ FROM quay.io/projectquay/golang:1.22 AS builder
 WORKDIR /go/src/app
 COPY . .
 RUN yum install -y make
+RUN go mod tidy && go mod download
 RUN make build
 
 FROM scratch

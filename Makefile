@@ -5,19 +5,7 @@ TARGETOS ?= linux
 TARGETARCH ?= arm64
 IMAGETAG = ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
-lint:
-	golint
-
-test:
-	go test -v
-
-deps:
-	go mod tidy && go mod download
-
-get:
-	go get
-
-build: deps get
+build:
 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP} -ldflags "-X="github.com/xvktn/kbot/cmd.appVersion=${VERSION}
 
 image: build
