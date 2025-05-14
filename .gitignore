@@ -8,6 +8,9 @@
 *.so
 *.dylib
 
+# Kbot binary
+kbot
+
 # Test binary, built with `go test -c`
 *.test
 
