@@ -8,8 +8,14 @@ IMAGETAG = ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 build:
 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP} -ldflags "-X="github.com/xvktn/kbot/cmd.appVersion=${VERSION}
 
-image: build
-	docker buildx build -t ${IMAGETAG} --load .
+image:
+	docker buildx build \
+		--build-arg VERSION=$(VERSION) \
+		--build-arg TARGETOS=$(TARGETOS) \
+		--build-arg TARGETARCH=$(TARGETARCH) \
+		--build-arg APP=$(APP) \
+		-t $(IMAGETAG) \
+		--load .
 
 push:
 	docker push ${IMAGETAG}
