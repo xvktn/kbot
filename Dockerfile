@@ -8,7 +8,6 @@ ARG APP
 WORKDIR /go/src/app
 COPY . .
 RUN yum install -y make
-RUN go mod tidy && go mod download
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP} -ldflags "-X=github.com/xvktn/kbot/cmd.appVersion=${VERSION}"
 
 FROM scratch
