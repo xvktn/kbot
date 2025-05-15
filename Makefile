@@ -5,7 +5,7 @@ TARGETOS ?= linux
 TARGETARCH ?= arm64
 IMAGETAG = ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
-build:
+image:
 	docker buildx build \
 		--build-arg VERSION=$(VERSION) \
 		--build-arg TARGETOS=$(TARGETOS) \
@@ -22,13 +22,13 @@ clean:
 	docker rmi ${IMAGETAG} || true
 
 linux:
-	$(MAKE) build TARGETOS=linux TARGETARCH=amd64
+	$(MAKE) image TARGETOS=linux TARGETARCH=amd64
 
 windows:
-	$(MAKE) build TARGETOS=windows TARGETARCH=amd64
+	$(MAKE) image TARGETOS=windows TARGETARCH=amd64
 
 macos:
-	$(MAKE) build TARGETOS=darwin TARGETARCH=amd64
+	$(MAKE) image TARGETOS=darwin TARGETARCH=amd64
 
 arm:
-	$(MAKE) build TARGETOS=linux TARGETARCH=arm64
+	$(MAKE) image TARGETOS=linux TARGETARCH=arm64
