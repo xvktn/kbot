@@ -6,9 +6,6 @@ TARGETARCH ?= arm64
 IMAGETAG = ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 build:
-	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o ${APP} -ldflags "-X="github.com/xvktn/kbot/cmd.appVersion=${VERSION}
-
-image:
 	docker buildx build \
 		--build-arg VERSION=$(VERSION) \
 		--build-arg TARGETOS=$(TARGETOS) \
