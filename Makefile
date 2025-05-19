@@ -6,13 +6,12 @@ TARGETARCH ?= arm64
 IMAGETAG = ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 image:
-	DOCKER_BUILDKIT=0 docker buildx build \
+	docker build \
 		--build-arg VERSION=$(VERSION) \
 		--build-arg TARGETOS=$(TARGETOS) \
 		--build-arg TARGETARCH=$(TARGETARCH) \
 		--build-arg APP=$(APP) \
-		-t $(IMAGETAG) \
-		--load .
+		-t $(IMAGETAG) .
 
 push:
 	docker push ${IMAGETAG}
