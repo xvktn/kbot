@@ -6,7 +6,7 @@ TARGETARCH ?= arm64
 IMAGETAG = ${REGISTRY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 image:
-	docker buildx build \
+	DOCKER_BUILDKIT=0 docker buildx build \
 		--build-arg VERSION=$(VERSION) \
 		--build-arg TARGETOS=$(TARGETOS) \
 		--build-arg TARGETARCH=$(TARGETARCH) \
